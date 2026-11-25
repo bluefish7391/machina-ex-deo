@@ -4,7 +4,7 @@
 namespace Pins {
 	// OLED
 	constexpr uint8_t OLED_SDA = 20;
-	constexpr uint8_t OLED_SLC = 21;
+	constexpr uint8_t OLED_SCL = 21;
 
 	// LCD
 	constexpr uint8_t LCD_RS = 22;
