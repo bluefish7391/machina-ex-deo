@@ -8,6 +8,8 @@ public:
 	void begin();
 	void update(unsigned long now);
 	bool wasPressed() const { return pressedEvent_; }
+	bool wasReleased() const { return releasedEvent_; }
+	bool isHeld() const { return stableState_; }
 
 private:
 	static constexpr unsigned long DEBOUNCE_MS = 25;
@@ -16,5 +18,6 @@ private:
 	bool rawState_ = false;
 	bool stableState_ = false;
 	bool pressedEvent_ = false;
+	bool releasedEvent_ = false;
 	unsigned long lastChange_ = 0;
 };
