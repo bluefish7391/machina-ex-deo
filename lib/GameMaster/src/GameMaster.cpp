@@ -24,7 +24,7 @@ void GameMaster::updateTitle(unsigned long now) {
 
 void GameMaster::updatePlaying(unsigned long now) {
 	powerManager_.runPassivePowerGen(now);
-	if (powerManager_.getPower() >= 20) {
+	if (powerManager_.getPower() >= Config::POWER_TO_WIN) {
 		state_ = GameState::Won;
 		return;
 	}
