@@ -1,4 +1,5 @@
 #include <GameMaster.h>
+#include <config.h>
 
 void GameMaster::begin() {
 	space_.begin();
