@@ -17,6 +17,6 @@ void Button::update(unsigned long now) {
 	if (now - lastChange_ >= DEBOUNCE_MS && rawState_ != stableState_) {
 		stableState_ = rawState_;
 		if (stableState_) pressedEvent_ = true;
-		else releasedEvent_ = false;
+		else releasedEvent_ = true;
 	}
 }
