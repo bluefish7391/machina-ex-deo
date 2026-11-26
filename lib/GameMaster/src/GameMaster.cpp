@@ -1,4 +1,3 @@
-
 #include <GameMaster.h>
 
 void GameMaster::begin() {
