@@ -14,4 +14,5 @@ public:
 
 private:
 	Button space_{Pins::SPACE};
+	GameState state_ = GameState::Title;
 };
