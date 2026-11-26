@@ -23,7 +23,15 @@ void GameMaster::updateTitle(unsigned long now) {
 }
 
 void GameMaster::updatePlaying(unsigned long now) {
-	// TBA
+	powerManager_.runPassivePowerGen(now);
+	if (powerManager_.getPower() >= 20) {
+		state_ = GameState::Won;
+		return;
+	}
+
+	// All prototype updates, input handling, outputs, etc. go here
+
+	powerManager_.runQTE(now); // Only if available
 }
 
 void GameMaster::updateWon(unsigned long now) {}
