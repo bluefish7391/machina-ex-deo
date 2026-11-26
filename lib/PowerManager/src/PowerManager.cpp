@@ -4,6 +4,7 @@
 void PowerManager::runPassivePowerGen(unsigned long now) {
 	if (now - lastPassivePowerGen_ >= Config::PASSIVE_POWER_GEN_MS) {
 		power_++;
+		lastPassivePowerGen_ = now;
 	}
 }
 
