@@ -15,4 +15,8 @@ public:
 private:
 	Button space_{Pins::SPACE};
 	GameState state_ = GameState::Title;
+
+	void updateTitle(unsigned long now);
+	void updatePlaying(unsigned long now);
+	void updateWon(unsigned long now);
 };
