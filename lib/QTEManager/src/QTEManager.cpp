@@ -73,14 +73,24 @@ void QTEManager::updateQTE(unsigned long now) {
 }
 
 void QTEManager::endQTE() {
-	lastQTEWasSuccessful_ = qteCurrentlySuccessful_;
+	if (qteCurrentlySuccessful_) {
+		powerToCollect_ = Config::QTE_REWARD;
+	}
 
 	currentBarIdx_ = 0;
-	active_ = false;
 	onTarget_ = false;
 	qteCurrentlySuccessful_ = true;
-	lastQTEWasSuccessful_ = false;
 	for (uint8_t i = 0; i < WIDTH; i++) {
 		QTEBar_[i] = BLANK_CHAR;
 	}
+}
+
+bool QTEManager::QTEActive() {
+	return state_ == QTEManagerState::Active;
+}
+
+uint8_t QTEManager::collectPower() {
+	uint8_t power = powerToCollect_;
+	powerToCollect_ = 0;
+	return power;
 }

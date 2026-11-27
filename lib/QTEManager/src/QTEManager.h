@@ -15,8 +15,8 @@ public:
 	QTEManager(LCD lcd, Button space);
 	void begin(unsigned long now);
 	void update(unsigned long now);
-	bool QTEActive() { return state_ == QTEManagerState::Active; }
-	bool getLastQTEWasSuccessful() { return lastQTEWasSuccessful_; }
+	bool QTEActive();
+	uint8_t collectPower();
 
 private:
 	LCD lcd_;
@@ -34,11 +34,10 @@ private:
 	char QTEBar_[WIDTH + 1];
 	uint8_t currentBarIdx_ = 0;
 
-	bool active_ = false;
 	bool onTarget_ = false;
 	bool tapped_ = false;
 	bool qteCurrentlySuccessful_ = true;
-	bool lastQTEWasSuccessful_ = false;
+	uint8_t powerToCollect_ = 0;
 
 	void startQTE(unsigned long now);
 	void updateQTE(unsigned long now);
