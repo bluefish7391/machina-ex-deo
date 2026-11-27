@@ -39,13 +39,46 @@ void QTEManager::update(unsigned long now) {
 }
 
 void QTEManager::startQTE(unsigned long now) {
-	
+	uint8_t target1 = 5;
+	QTEBar_[target1] = TARGET_CHAR;
+	QTEBar_[currentBarIdx_] = FOCUS_CHAR;
+
+	lcd_.setLine(0, "[SPACE] FOR POWER");
+	lcd_.setLine(1, QTEBar_);
 }
 
 void QTEManager::updateQTE(unsigned long now) {
+	if (space_.wasPressed()) {
+		tapped_ = true;
+	}
 
+	if (now - lastQTEUpdate_ >= Config::QTE_FOCUS_MOVE_MS) {
+		if (!tapped_ && onTarget_ || tapped_ && !onTarget_) {
+			QTEBar_[currentBarIdx_] = MISS_CHAR;
+			qteCurrentlySuccessful_ = false;
+		} else if (tapped_ && onTarget_) {
+			QTEBar_[currentBarIdx_] = HIT_CHAR;
+		} else {
+			QTEBar_[currentBarIdx_] = BLANK_CHAR;
+		}
+
+		tapped_ = false;
+		onTarget_ = (QTEBar_[currentBarIdx_] == TARGET_CHAR);
+		QTEBar_[++currentBarIdx_] = FOCUS_CHAR;
+
+		lcd_.setLine(1, QTEBar_);
+	}
 }
 
 void QTEManager::endQTE() {
-	
+	lastQTEWasSuccessful_ = qteCurrentlySuccessful_;
+
+	currentBarIdx_ = 0;
+	active_ = false;
+	onTarget_ = false;
+	qteCurrentlySuccessful_ = true;
+	lastQTEWasSuccessful_ = false;
+	for (uint8_t i = 0; i < WIDTH; i++) {
+		QTEBar_[i] = BLANK_CHAR;
+	}
 }

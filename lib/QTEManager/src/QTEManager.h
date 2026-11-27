@@ -15,7 +15,8 @@ public:
 	QTEManager(LCD lcd, Button space);
 	void begin(unsigned long now);
 	void update(unsigned long now);
-	bool getLastQTEWasSuccessful();
+	bool QTEActive() { return state_ == QTEManagerState::Active; }
+	bool getLastQTEWasSuccessful() { return lastQTEWasSuccessful_; }
 
 private:
 	LCD lcd_;
@@ -23,9 +24,9 @@ private:
 	static constexpr uint8_t WIDTH = 16, HEIGHT = 2;
 	static constexpr char BLANK_CHAR = 'o';
 	static constexpr char TARGET_CHAR = '*';
-	static constexpr char FOCUS_CHAR = '#';
 	static constexpr char HIT_CHAR = '$';
 	static constexpr char MISS_CHAR = 'X';
+	static constexpr char FOCUS_CHAR = '#';
 
 	QTEManagerState state_ = QTEManagerState::Idle;
 	unsigned long lastQTEStart_;
@@ -34,9 +35,10 @@ private:
 	uint8_t currentBarIdx_ = 0;
 
 	bool active_ = false;
-	bool onTarget = false;
-	bool qteCurrentSuccess_ = true;
-	bool lastQTEWasSuccessful = false;
+	bool onTarget_ = false;
+	bool tapped_ = false;
+	bool qteCurrentlySuccessful_ = true;
+	bool lastQTEWasSuccessful_ = false;
 
 	void startQTE(unsigned long now);
 	void updateQTE(unsigned long now);
