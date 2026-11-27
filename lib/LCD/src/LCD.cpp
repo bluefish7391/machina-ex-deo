@@ -12,14 +12,15 @@ void LCD::begin() {
 void LCD::setLine(uint8_t lineNum, const char* line) {
 	if (strncmp(currentMessage_[lineNum], line, COLS) == 0) return;
 	strncpy(currentMessage_[lineNum], line, COLS);
-	render();
 }
 
-void LCD::render() {
-	lcd_.clear();
+void LCD::update() {
 	lcd_.setCursor(0, 0);
 	for (uint8_t i = 0; i < ROWS; i++) {
-		lcd_.println(currentMessage_[i]);
+		if (strcmp(currentMessage_[i], buffer_[i]) != 0) {
+			strcpy(currentMessage_[i], buffer_[i]);
+			lcd_.println(currentMessage_[i]);
+		}
 	}
 	
 	lcd_.display();
