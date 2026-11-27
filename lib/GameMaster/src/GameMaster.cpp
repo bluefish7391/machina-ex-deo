@@ -7,9 +7,14 @@ void GameMaster::begin() {
 	unsigned long now = millis();
 
 	space_.begin();
-	oled_.begin();
+
 	lcd_.begin();
+	oled_.begin();
 	qteManager_.begin(now);
+
+	lcd_.setLine(0, " MACHINE EX DEO ");
+	lcd_.setLine(1, "  PUSH [SPACE]  ");
+	lcd_.update();
 }
 
 void GameMaster::update(unsigned long now) {
@@ -27,7 +32,11 @@ void GameMaster::update(unsigned long now) {
 //===============================================
 
 void GameMaster::updateTitle(unsigned long now) {
-	if (space_.wasPressed()) state_ = GameState::Playing;
+	if (space_.wasPressed()) {
+		state_ = GameState::Playing;
+		lcd_.setLine(0, "");
+		lcd_.setLine(1, "");
+	}
 }
 
 void GameMaster::updatePlaying(unsigned long now) {
