@@ -10,12 +10,6 @@ void OLED::begin() {
 	display_.setTextSize(2);
 }
 
-void OLED::displayPower(uint8_t power) {
-	char buf[MSG_LEN];
-	snprintf(buf, sizeof(buf), "Power:%u/20", power);
-	render(buf);
-}
-
 void OLED::render(const char* message) {
 	if (strcmp(message, currentMessage_) == 0) return;
 

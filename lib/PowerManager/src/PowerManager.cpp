@@ -1,5 +1,8 @@
 
 #include <PowerManager.h>
+#include <OLED.h>
+
+PowerManager::PowerManager(OLED& oled) : oled_{oled} {}
 
 void PowerManager::runPassivePowerGen(unsigned long now) {
 	if (now - lastPassivePowerGen_ >= Config::PASSIVE_POWER_GEN_MS) {
