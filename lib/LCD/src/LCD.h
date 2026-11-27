@@ -15,4 +15,6 @@ public:
 private:
 	LiquidCrystal lcd_;
 	char currentMessage_[ROWS][COLS + 1];
+
+	void render();
 };
