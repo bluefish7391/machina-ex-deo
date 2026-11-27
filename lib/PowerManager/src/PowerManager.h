@@ -11,7 +11,8 @@ public:
 	uint8_t getPower() { return power_; };
 	void runPassivePowerGen(unsigned long now);
 	void runQTE(unsigned long now);
-	void displayPower() {};
+	void changePower(uint8_t amount);
+	void displayPower();
 
 private:
 	uint8_t power_ = Config::POWER_START;
