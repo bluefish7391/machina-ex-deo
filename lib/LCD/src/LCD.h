@@ -1,4 +1,3 @@
-
 #pragma once
 #include <Arduino.h>
 #include <LiquidCrystal.h>
@@ -16,6 +15,6 @@ public:
 
 private:
 	LiquidCrystal lcd_;
-	char currentMessage_[ROWS][COLS + 1];
-	char buffer_[ROWS][COLS + 1];
+	char currentMessage_[ROWS][COLS + 1] = {};
+	char buffer_[ROWS][COLS + 1] = {};
 };

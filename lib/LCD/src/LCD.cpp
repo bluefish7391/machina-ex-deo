@@ -1,4 +1,3 @@
-
 #include <LCD.h>
 #include <pins.h>
 
@@ -12,21 +11,28 @@ LCD::LCD(uint8_t rs, uint8_t en, uint8_t d4,
 
 void LCD::begin() {
 	lcd_.begin(COLS, ROWS);
+	lcd_.clear();
+	lcd_.display();
 }
 
 void LCD::setLine(uint8_t lineNum, const char* line) {
-	if (strncmp(currentMessage_[lineNum], line, COLS) == 0) return;
-	strncpy(currentMessage_[lineNum], line, COLS);
+	char padded[COLS + 1];
+	memset(padded, ' ', COLS);
+	padded[COLS] = '\0';
+
+	uint8_t length = strnlen(line, COLS);
+	memcpy(padded, line, length);
+	strncpy(buffer_[lineNum], padded, COLS + 1);
 }
 
 void LCD::update() {
-	lcd_.setCursor(0, 0);
 	for (uint8_t i = 0; i < ROWS; i++) {
 		if (strcmp(currentMessage_[i], buffer_[i]) != 0) {
-			strcpy(currentMessage_[i], buffer_[i]);
-			lcd_.println(currentMessage_[i]);
+			strncpy(currentMessage_[i], buffer_[i], COLS + 1);
+			lcd_.setCursor(0, i);
+			lcd_.print(currentMessage_[i]);
 		}
 	}
-	
+
 	lcd_.display();
 }
