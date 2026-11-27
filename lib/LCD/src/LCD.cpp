@@ -1,5 +1,10 @@
 
 #include <LCD.h>
+#include <pins.h>
+
+LCD::LCD()
+	: LCD(Pins::LCD_RS, Pins::LCD_EN, Pins::LCD_D4,
+		Pins::LCD_D5, Pins::LCD_D6, Pins::LCD_D7) {}
 
 LCD::LCD(uint8_t rs, uint8_t en, uint8_t d4,
 		uint8_t d5, uint8_t d6, uint8_t d7) 
