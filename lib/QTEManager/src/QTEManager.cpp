@@ -45,6 +45,7 @@ void QTEManager::startQTE(unsigned long now) {
 
 	lcd_.setLine(0, "[SPACE] FOR POWER");
 	lcd_.setLine(1, QTEBar_);
+	lcd_.update();
 }
 
 void QTEManager::updateQTE(unsigned long now) {
@@ -67,6 +68,7 @@ void QTEManager::updateQTE(unsigned long now) {
 		QTEBar_[++currentBarIdx_] = FOCUS_CHAR;
 
 		lcd_.setLine(1, QTEBar_);
+		lcd_.update();
 	}
 }
 
