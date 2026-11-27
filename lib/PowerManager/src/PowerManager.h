@@ -10,7 +10,6 @@ public:
 	explicit PowerManager(OLED& oled);
 	uint8_t getPower() { return power_; };
 	void runPassivePowerGen(unsigned long now);
-	void runQTE(unsigned long now);
 	void changePower(uint8_t amount);
 	void displayPower();
 

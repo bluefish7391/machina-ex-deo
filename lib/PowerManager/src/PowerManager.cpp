@@ -12,11 +12,6 @@ void PowerManager::runPassivePowerGen(unsigned long now) {
 	}
 }
 
-void PowerManager::runQTE(unsigned long now) {
-	if (now - lastQTE_ < Config::QTE_PERIOD_MS) return;
-	// TBA
-}
-
 void PowerManager::changePower(uint8_t amount) {
 	power_ += amount;
 	power_ = min(20, max(power_, 0));
