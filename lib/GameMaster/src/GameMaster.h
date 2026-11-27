@@ -2,6 +2,8 @@
 #include <Button.h>
 #include <PowerManager.h>
 #include <OLED.h>
+#include <LCD.h>
+#include <QTEManager.h>
 
 enum class GameState : uint8_t {
 	Title,
@@ -11,14 +13,17 @@ enum class GameState : uint8_t {
 
 class GameMaster {
 public:
+	GameMaster();
 	void begin();
 	void update(unsigned long now);
 
 private:
 	Button space_{Pins::SPACE};
 	GameState state_ = GameState::Title;
-	PowerManager powerManager_;
 	OLED oled_;
+	LCD lcd_;
+	QTEManager qteManager_{lcd_, space_};
+	PowerManager powerManager_;
 
 	void updateTitle(unsigned long now);
 	void updatePlaying(unsigned long now);
