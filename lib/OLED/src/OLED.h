@@ -16,10 +16,10 @@ public:
 private:
 	OLEDState state_;
 	Adafruit_SSD1306 display_;
-	const char* currentMessage_;
 
 	static constexpr uint8_t WIDTH = 128, HEIGHT = 64;
 	static constexpr uint8_t MSG_LEN = 32;
+	char currentMessage_[MSG_LEN] = "";
 	
 	void render(const char* message);
 };
