@@ -1,5 +1,3 @@
-
-#pragma once
 #include <Arduino.h>
 #include <QTEManager.h>
 #include <config.h>
@@ -9,28 +7,32 @@ QTEManager::QTEManager(LCD& lcd, Button& space) : lcd_(lcd), space_(space) {}
 void QTEManager::begin(unsigned long now) {
 	lastQTEStart_ = now;
 	lastQTEUpdate_ = now;
+	state_ = QTEManagerState::Idle;
 
 	for (uint8_t i = 0; i < WIDTH; i++) {
 		QTEBar_[i] = BLANK_CHAR;
 	}
+	QTEBar_[WIDTH] = '\0';
 }
 
 void QTEManager::update(unsigned long now) {
 	switch (state_) {
-		case QTEManagerState::Idle: 
+		case QTEManagerState::Idle:
 			if (now - lastQTEStart_ >= Config::QTE_PERIOD_MS) {
 				startQTE(now);
+				state_ = QTEManagerState::Wait;
 			}
 			break;
 		case QTEManagerState::Wait:
 			if (now - lastQTEStart_ >= Config::QTE_WAIT_MS) {
-				state_ = QTEManagerState::Active;
 				lastQTEUpdate_ = now;
+				state_ = QTEManagerState::Active;
 			}
 			break;
 		case QTEManagerState::Active:
 			if (currentBarIdx_ == WIDTH) {
 				endQTE();
+				state_ = QTEManagerState::Idle;
 			} else {
 				updateQTE(now);
 			}
@@ -39,6 +41,9 @@ void QTEManager::update(unsigned long now) {
 }
 
 void QTEManager::startQTE(unsigned long now) {
+	lastQTEStart_ = now;
+	lastQTEUpdate_ = now;
+
 	uint8_t target1 = 5;
 	QTEBar_[target1] = TARGET_CHAR;
 	QTEBar_[currentBarIdx_] = FOCUS_CHAR;
@@ -78,6 +83,7 @@ void QTEManager::endQTE() {
 	}
 
 	currentBarIdx_ = 0;
+	tapped_ = false;
 	onTarget_ = false;
 	qteCurrentlySuccessful_ = true;
 	for (uint8_t i = 0; i < WIDTH; i++) {

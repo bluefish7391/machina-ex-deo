@@ -1,4 +1,3 @@
-
 #include <config.h>
 #include <PowerManager.h>
 #include <OLED.h>
