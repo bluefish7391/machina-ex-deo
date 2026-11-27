@@ -30,6 +30,9 @@ void GameMaster::updatePlaying(unsigned long now) {
 		return;
 	}
 
+	uint8_t power = powerManager_.getPower();
+	oled_.displayPower(power);
+
 	// All prototype updates, input handling, outputs, etc. go here
 
 	powerManager_.runQTE(now); // Only if available

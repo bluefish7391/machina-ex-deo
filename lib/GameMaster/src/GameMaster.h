@@ -1,6 +1,7 @@
 #include <pins.h>
 #include <Button.h>
 #include <PowerManager.h>
+#include <OLED.h>
 
 enum class GameState : uint8_t {
 	Title,
@@ -17,6 +18,7 @@ private:
 	Button space_{Pins::SPACE};
 	GameState state_ = GameState::Title;
 	PowerManager powerManager_;
+	OLED oled_;
 
 	void updateTitle(unsigned long now);
 	void updatePlaying(unsigned long now);
