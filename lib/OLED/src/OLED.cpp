@@ -8,12 +8,14 @@ void OLED::begin() {
 	display_.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 	display_.setTextColor(WHITE);
 	display_.setTextSize(2);
-	
+
 	currentMessage_ = "";
 }
 
 void OLED::displayPower(uint8_t power) {
-	render("test");
+	char buf[MSG_LEN];
+	snprintf(buf, sizeof(buf), "Power: %u/20", power);
+	render(buf);
 }
 
 void OLED::render(const char* message) {

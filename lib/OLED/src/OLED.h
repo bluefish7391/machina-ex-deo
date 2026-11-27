@@ -19,6 +19,7 @@ private:
 	const char* currentMessage_;
 
 	static constexpr uint8_t WIDTH = 128, HEIGHT = 64;
+	static constexpr uint8_t MSG_LEN = 32;
 	
 	void render(const char* message);
 };
