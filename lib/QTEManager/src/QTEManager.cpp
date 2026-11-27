@@ -16,8 +16,25 @@ void QTEManager::begin(unsigned long now) {
 }
 
 void QTEManager::update(unsigned long now) {
-	if (now - lastQTEStart_ >= Config::QTE_PERIOD_MS) {
-		startQTE(now);
+	switch (state_) {
+		case QTEManagerState::Idle: 
+			if (now - lastQTEStart_ >= Config::QTE_PERIOD_MS) {
+				startQTE(now);
+			}
+			break;
+		case QTEManagerState::Wait:
+			if (now - lastQTEStart_ >= Config::QTE_WAIT_MS) {
+				state_ = QTEManagerState::Active;
+				lastQTEUpdate_ = now;
+			}
+			break;
+		case QTEManagerState::Active:
+			if (currentBarIdx_ == WIDTH) {
+				endQTE();
+			} else {
+				updateQTE(now);
+			}
+			break;
 	}
 }
 

@@ -4,6 +4,12 @@
 #include <LCD.h>
 #include <Button.h>
 
+enum class QTEManagerState : uint8_t {
+	Idle,
+	Wait,
+	Active
+};
+
 class QTEManager {
 public:
 	QTEManager(LCD lcd, Button space);
@@ -21,6 +27,7 @@ private:
 	static constexpr char HIT_CHAR = '$';
 	static constexpr char MISS_CHAR = 'X';
 
+	QTEManagerState state_ = QTEManagerState::Idle;
 	unsigned long lastQTEStart_;
 	unsigned long lastQTEUpdate_;
 	char QTEBar_[WIDTH + 1];
