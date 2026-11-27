@@ -7,6 +7,7 @@
 class QTEManager {
 public:
 	QTEManager(LCD lcd, Button space);
+	void begin(unsigned long now);
 	void update(unsigned long now);
 	bool getLastQTEWasSuccessful();
 
@@ -14,10 +15,15 @@ private:
 	LCD lcd_;
 	Button space_;
 	static constexpr uint8_t WIDTH = 16, HEIGHT = 2;
+	static constexpr char BLANK_CHAR = 'o';
+	static constexpr char TARGET_CHAR = '*';
+	static constexpr char FOCUS_CHAR = '#';
+	static constexpr char HIT_CHAR = '$';
+	static constexpr char MISS_CHAR = 'X';
 
-	unsigned long lastQTEStart_ = 0;
-	unsigned long lastQTEUpdate_ = 0;
-	char QTEBar[WIDTH + 1] = "oooooooooooooooo";
+	unsigned long lastQTEStart_;
+	unsigned long lastQTEUpdate_;
+	char QTEBar_[WIDTH + 1];
 	uint8_t currentBarIdx_ = 0;
 
 	bool active_ = false;
