@@ -12,15 +12,15 @@ enum class QTEManagerState : uint8_t {
 
 class QTEManager {
 public:
-	QTEManager(LCD lcd, Button space);
+	QTEManager(LCD& lcd, Button& space);
 	void begin(unsigned long now);
 	void update(unsigned long now);
 	bool QTEActive();
 	uint8_t collectPower();
 
 private:
-	LCD lcd_;
-	Button space_;
+	LCD& lcd_;
+	Button& space_;
 	static constexpr uint8_t WIDTH = 16, HEIGHT = 2;
 	static constexpr char BLANK_CHAR = 'o';
 	static constexpr char TARGET_CHAR = '*';

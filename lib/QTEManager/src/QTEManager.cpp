@@ -4,7 +4,7 @@
 #include <QTEManager.h>
 #include <config.h>
 
-QTEManager::QTEManager(LCD lcd, Button space) : lcd_(lcd), space_(space) {}
+QTEManager::QTEManager(LCD& lcd, Button& space) : lcd_(lcd), space_(space) {}
 
 void QTEManager::begin(unsigned long now) {
 	lastQTEStart_ = now;
