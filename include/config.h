@@ -18,4 +18,5 @@ namespace Config {
 	constexpr unsigned long PASSIVE_POWER_GEN_MS = 20000;
 	constexpr unsigned long QTE_PERIOD_MS = 20000;
 	constexpr unsigned long QTE_WAIT_MS = 500;
+	constexpr unsigned long QTE_FOCUS_MOVE_MS = 200;
 }
