@@ -1,5 +1,16 @@
 
+#include <Adafruit_SSD1306.h>
 #include <OLED.h>
+
+OLED::OLED() : display_(WIDTH, HEIGHT, &Wire, -1) {}
+
+void OLED::begin() {
+	display_.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+	display_.setTextColor(WHITE);
+	display_.setTextSize(2);
+	
+	currentMessage_ = "";
+}
 
 void OLED::displayPower(uint8_t power) {
 	render("test");

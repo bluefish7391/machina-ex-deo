@@ -10,7 +10,7 @@ enum OLEDState {
 class OLED {
 public:
 	OLED();
-	bool begin();
+	void begin();
 	void displayPower(uint8_t power);
 
 private:

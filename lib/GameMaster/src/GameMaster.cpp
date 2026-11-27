@@ -3,6 +3,7 @@
 
 void GameMaster::begin() {
 	space_.begin();
+	oled_.begin();
 }
 
 void GameMaster::update(unsigned long now) {
