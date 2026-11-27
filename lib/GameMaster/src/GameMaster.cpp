@@ -1,7 +1,7 @@
 #include <GameMaster.h>
 #include <config.h>
 
-GameMaster::GameMaster() : powerManager_(oled_, qteManager_) {}
+GameMaster::GameMaster() : powerManager_(qteManager_) {}
 
 void GameMaster::begin() {
 	unsigned long now = millis();
@@ -38,7 +38,9 @@ void GameMaster::updatePlaying(unsigned long now) {
 	}
 
 	uint8_t power = powerManager_.getPower();
-	powerManager_.displayPower();
+	char buf[OLED::MSG_LEN];
+	snprintf(buf, OLED::MSG_LEN, "Power:%u/20", power);
+	oled_.render(buf);
 
 	// All prototype updates, input handling, outputs, etc. go here
 }
